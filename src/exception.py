@@ -1,22 +1,20 @@
 import sys
 
-def errorMessageDetail(error, errorDetail:sys):
-  _,_,exc_tb = errorDetail.exc_info()
+def error_message_detail(error, error_detail: sys):
+    
+    _, _, exc_tb = error_detail.exc_info()
 
-  fileName = exc_tb.tb_frame.f_code.co_filename
-  lineNumber = exc_tb.tb_lineno
-  error = str(error)
+    file_name = exc_tb.tb_frame.f_code.co_filename
+    line_number = exc_tb.tb_lineno
+    error = str(error)
 
-  errorMessage = f"There is error is {fileName} line number {lineNumber} error message {error}"
-
-  return errorMessage
+    return f"Error in {file_name}, line {line_number}: {error}"
 
 
 class CustomException(Exception):
-  def __init__ (self, errorMessage, errorDetail:sys):
-    super.__init__(errorMessage)
-    self.errorMessage = errorMessageDetail(errorMessage, errorDetail=errorDetail)
+    def __init__(self, error, error_detail: sys):
+        super().__init__(error)
+        self.error_message = error_message_detail(error, error_detail)
 
-  def __str__(self):
-    return self.errorMessage
-  
+    def __str__(self):
+        return self.error_message
